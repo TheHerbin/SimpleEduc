@@ -1,7 +1,7 @@
 <?php
 function getPage(){    
     $lesPages['accueil'] = "accueilControleur";     
-    $lesPages['contact'] = "contactControleur";    
+    $lesPages['ajoutdeveloppeur'] = "ajoutdeveloppeurControleur";    
     if (isset($_GET['page'])){        
         $page = $_GET['page'];    
     }    else{        
