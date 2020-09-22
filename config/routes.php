@@ -1,7 +1,9 @@
 <?php
 function getPage(){    
     $lesPages['accueil'] = "accueilControleur";     
-    $lesPages['contact'] = "contactControleur";    
+    $lesPages['contact'] = "contactControleur"; 
+    $lesPages['ajoutClient'] = "ajoutClientControleur";
+       
     if (isset($_GET['page'])){        
         $page = $_GET['page'];    
     }    else{        
@@ -13,4 +15,4 @@ function getPage(){
             }    return $contenu;}
             
             
-            ?>
+?>
