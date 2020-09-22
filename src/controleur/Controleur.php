@@ -1,6 +1,6 @@
 <?php
 function accueilControleur($twig){   
-    echo 'Page d\'accueil du site';
+    echo $twig->render('accueil.html.twig', array());
 }
 
 function contactControleur(){    
