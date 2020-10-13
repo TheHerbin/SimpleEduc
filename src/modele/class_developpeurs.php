@@ -6,7 +6,7 @@
 
         public function __construct($db){
             $this->db = $db;
-            $this->insert = $db->prepare("insert into developpeur(nom,prenom,indiceremuneration,couthoraire,) values(:nom,:prenom,:indiceremuneration,:couthoraire)");
+            $this->insert = $db->prepare("INSERT into developpeur(nom,prenom,indiceremuneration,couthoraire) values(:nom,:prenom,:indiceremuneration,:couthoraire)");
 
         }
         public function insert($nom,$prenom,$indiceremuneration,$couthoraire){

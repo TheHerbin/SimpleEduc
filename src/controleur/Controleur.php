@@ -12,8 +12,8 @@ function ajoutdeveloppeurControleur($twig,$db){
         $indiceremuneration = $_POST['indiceremuneration'];
         $couthoraire = $_POST['couthoraire'];
         $form['valide'] = true;
-        $Utilisateur = new Utilisateur($db);
-            $exec = $Utilisateur->insert($nom, $prenom, $indiceremuneration, $couthoraire);
+        $Developpeur = new Developpeur($db);
+            $exec = $Developpeur->insert($nom, $prenom, $indiceremuneration, $couthoraire);
             if (!$exec){
                 $form['valide'] = false;
                 $form['message'] = 'Problème d\'insertion dans la table utilisateur ';
@@ -25,7 +25,7 @@ function ajoutdeveloppeurControleur($twig,$db){
 
 
       }
-    echo $twig->render('creerUtilisateur.html.twig', array('form'=>$form));
+    echo $twig->render('ajoutdeveloppeur.html.twig', array('form'=>$form));
    }
 
 
