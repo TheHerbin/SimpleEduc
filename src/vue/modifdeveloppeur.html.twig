@@ -1,0 +1,57 @@
+{% extends "base.html.twig" %}
+{% block title %}
+	{{ parent() }}
+	Modifier un Developpeur
+{% endblock %}
+
+{% block body %}
+	{{parent()}}
+    {% if form.developpeur is defined %}
+ {% if form.developpeur != null %}
+	<div class="container">
+		<div class="row justify-content-center">
+
+			<form action="index.php?page=modifUtilisateur" method="post" enctype="application/x-www-form-urlencoded">
+				<fieldset>
+					<legend>Modification d'un developpeur</legend>
+					<div class="form-group row"></div>
+					<div class="form-group">
+						<label for="exampleInputPassword1">nom</label>
+						<input class="form-control" id="exampleInputPassword1" name="nom" placeholder="Votre mdp ici"  type="text" value="{{form.developpeur.prenom}}">
+					</div>
+					<div class="form-group">
+						<label for="exampleInputName1">Prénom</label>
+						<input class="form-control" id="exampleInputname1" name="prenom"  type="text" value="{{form.developpeur.prenom}}">
+					</div>
+					<div class="form-group">
+						<label for="exampleInputfirstname1">Indice rémunération</label>
+						<input class="form-control" id="exampleInputFirstName1" name="prenom" value="{{form.developpeur.indiceremuneration}}" type="text">
+					</div>
+					<div class="form-group">
+						<label for="exampleInputphone1">Cout Horaire
+						</label>
+						<input class="form-control" id="exampleInputphone" name="tel" type="tel" value="{{form.developpeur.couthoraire}}" >
+					</div>
+					
+					<input type="hidden" name="iddeveloppeur" value="{{form.developpeur.iddeveloppeur}}"/>
+					
+
+					<button type="submit" name="btEnvoyer" class="btn btn-primary">Modifier</button>
+				</fieldset>
+			</form>
+
+
+            {% else %}
+		
+						
+ 
+ 
+ 
+ 
+{% endif %} {% endif %} 
+
+
+		</div>
+	</div>
+	
+{% endblock %}

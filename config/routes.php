@@ -2,6 +2,7 @@
 function getPage(){    
     $lesPages['accueil'] = "accueilControleur";     
     $lesPages['ajoutdeveloppeur'] = "ajoutdeveloppeurControleur";    
+    $lesPages['listedeveloppeur'] = "listedeveloppeurControleur";    
     if (isset($_GET['page'])){        
         $page = $_GET['page'];    
     }    else{        
