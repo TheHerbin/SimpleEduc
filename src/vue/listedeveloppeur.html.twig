@@ -3,7 +3,7 @@
 	{{ parent() }}
 	Liste des développeurs
 {% endblock %}
-{% block body %}
+{% block contenu %}
 	{{ parent() }}
 	
 		<div class="container">
@@ -35,8 +35,9 @@
 						<td>{{u.prenom}}</td>
 						<td>{{u.indiceremuneration}}</td>
 						<td>{{u.couthoraire}}</td>
-						<td>	<a <span href="index.php?page=modifdeveloppeur&iddeveloppeur={{u.iddeveloppeur}}" class="material-icons">edit</span>
-                        <a <span href="index.php?page=listedeveloppeur&iddeveloppeur={{u.iddeveloppeur}}" class="material-icons">clear</span></td>
+						
+						<td>	<a <span href="index.php?page=modifdeveloppeur&id={{u.id}}" class="material-icons">edit</span>
+                        <a <span href="index.php?page=listedeveloppeur&id={{u.id}}" class="material-icons">clear</span></td>
 					
 						
 					</tr>

@@ -1,5 +1,5 @@
 <?php
-    class developpeur{
+    class developpeurs{
         private $db;
         private $insert;
         private $select;
@@ -7,8 +7,8 @@
 
         public function __construct($db){
             $this->db = $db;
-            $this->insert = $db->prepare("INSERT into developpeur(nom,prenom,indiceremuneration,couthoraire) values(:nom,:prenom,:indiceremuneration,:couthoraire)");
-            $this->select = $db->prepare("SELECT nom, prenom, indiceremuneration, couthoraire from developpeur order by nom");
+            $this->insert = $db->prepare("INSERT into developpeurs(nom,prenom,indiceremuneration,couthoraire) values(:nom,:prenom,:indiceremuneration,:couthoraire)");
+            $this->select = $db->prepare("SELECT id, nom, prenom, indiceremuneration, couthoraire from developpeurs order by nom");
         }
 
         public function insert($nom,$prenom,$indiceremuneration,$couthoraire){

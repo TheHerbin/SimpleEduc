@@ -12,8 +12,8 @@ function ajoutdeveloppeurControleur($twig,$db){
         $indiceremuneration = $_POST['indiceremuneration'];
         $couthoraire = $_POST['couthoraire'];
         $form['valide'] = true;
-        $Developpeur = new Developpeur($db);
-            $exec = $Developpeur->insert($nom, $prenom, $indiceremuneration, $couthoraire);
+        $Developpeurs = new Developpeurs($db);
+            $exec = $Developpeurs->insert($nom, $prenom, $indiceremuneration, $couthoraire);
             if (!$exec){
                 $form['valide'] = false;
                 $form['message'] = 'Problème d\'insertion dans la table utilisateur ';
@@ -22,14 +22,16 @@ function ajoutdeveloppeurControleur($twig,$db){
     echo $twig->render('ajoutdeveloppeur.html.twig', array('form'=>$form));
    }
 
+
+
    function listedeveloppeurControleur($twig, $db){
     
     $form = array();
-    $Developpeur = new Developpeur($db);
-    if(isset($_GET['iddeveloppeur'])){
+    $Developpeurs = new Developpeurs($db);
+    if(isset($_GET['id'])){
       
-        $exec=$Developpeur->delete($_GET['iddeveloppeur']);
-       // die();
+        $exec=$Developpeurs->delete($_GET['id']);
+        
         if (!$exec){
         $etat = false;
         }
@@ -42,39 +44,36 @@ function ajoutdeveloppeurControleur($twig,$db){
         if(isset($_GET['etat'])){
         $form['etat'] = $_GET['etat'];
         }
-    $liste = $Developpeur->select();
-
+    $liste = $Developpeurs->select();
+        
     echo $twig->render('listedeveloppeur.html.twig', array('form'=>$form,'liste'=>$liste));
 }
+
+
 
 function modifDeveloppeurControleur($twig, $db){
     $form = array();
  if(isset($_GET['email'])){
- $Developpeur = new Developpeur($db);
- $undeveloppeur = $Developpeur->selectByEmail($_GET['iddeveloppeur']);
+ $Developpeurs = new Developpeurs($db);
+ $undeveloppeur = $Developpeurs->selectById($_GET['id']);
  
  if ($undeveloppeur!=null){
  $form['developpeur'] = $undeveloppeur;
- //Patch ca : 
- $role = new Role($db);
- $liste = $role->select();
- $form['roles']=$liste;
  }
  else{
  $form['message'] = 'Utilisateur incorrect';
  }
  }
  else{
-     //jusque ici
+    
  if(isset($_POST['btEnvoyer'])){
- $utilisateur = new Utilisateur($db);
+ $developpeur = new Developpeurs($db);
  $nom = $_POST['nom'];
- $email = $_POST['email'];
  $prenom = $_POST['prenom'];
- $idrole = $_POST['idrole'];
- $motdepasse = $_POST['motdepasse'];
- $tel = $_POST['tel'];
- $exec=$utilisateur->update($tel, $idrole, $nom, $prenom, $email, password_hash($motdepasse,PASSWORD_DEFAULT));
+ $indiceremuneration = $_POST['indiceremuneration'];
+ $couthoraire = $_POST['couthoraire'];
+ 
+ $exec = $developpeur->update($nom, $prenom, $indiceremuneration, $couthoraire);
  if(!$exec){
  $form['valide'] = false;
  $form['message'] = 'Echec de la modification';
@@ -88,11 +87,8 @@ function modifDeveloppeurControleur($twig, $db){
     $form['message'] = 'Utilisateur non précisé';
     }
     }
-    echo $twig->render('modifUtilisateur.html.twig', array('form'=>$form));
+    echo $twig->render('modifdeveloppeur.html.twig', array('form'=>$form));
    }
-
-
-
     
     ?>
         
