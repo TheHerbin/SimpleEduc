@@ -4,8 +4,11 @@
 	Modifier un Developpeur
 {% endblock %}
 
-{% block body %}
+{% block contenu %}
 	{{parent()}}
+	{% if form.valide == true %}
+	<h1>{{form.message}}</h1>
+	{% else %}
     {% if form.developpeur is defined %}
 	{% if form.developpeur != null %}
 	<div class="container">
@@ -17,7 +20,7 @@
 					<div class="form-group row"></div>
 					<div class="form-group">
 						<label for="exampleInputPassword1">nom</label>
-						<input class="form-control" id="exampleInputPassword1" name="nom" placeholder="Votre mdp ici"  type="text" value="{{form.developpeur.prenom}}">
+						<input class="form-control" id="exampleInputPassword1" name="nom" placeholder="Votre mdp ici"  type="text" value="{{form.developpeur.nom}}">
 					</div>
 					<div class="form-group">
 						<label for="exampleInputName1">Prénom</label>
@@ -35,6 +38,7 @@
 					
 					<input type="hidden" name="id" value="{{form.developpeur.id}}"/>
 					
+					
 
 					<button type="submit" name="btEnvoyer" class="btn btn-primary">Modifier</button>
 				</fieldset>
@@ -43,14 +47,10 @@
 
             {% else %}
 		
-						
- 
- 
- 
- 
+					
 {% endif %} {% endif %} 
 
-
+{% endif %} 
 		</div>
 	</div>
 	

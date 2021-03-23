@@ -3,7 +3,11 @@ function getPage(){
     $lesPages['accueil'] = "accueilControleur";     
     $lesPages['ajoutdeveloppeur'] = "ajoutdeveloppeurControleur";    
     $lesPages['listedeveloppeur'] = "listedeveloppeurControleur";    
-    $lesPages['modifdeveloppeur'] = "modifDeveloppeurControleur";    
+    $lesPages['modifdeveloppeur'] = "modifDeveloppeurControleur";   
+    $lesPages['ajoutEntreprise'] = "ajoutEntrepriseControleur"; 
+    $lesPages['listeEntreprise'] = "listeEntrepriseControleur"; 
+    $lesPages['modifEntreprise'] = "modifEntrepriseControleur"; 
+
     if (isset($_GET['page'])){        
         $page = $_GET['page'];    
     }    else{        

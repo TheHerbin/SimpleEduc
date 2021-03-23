@@ -1,0 +1,48 @@
+{% extends "base.html.twig" %}
+{% block title %}
+	{{ parent() }}
+	Ajout d'une entreprise cliente
+{% endblock %}
+
+{% block contenu %}
+	{{parent()}}
+ 
+	{% if form.valide is defined %}
+		{% if form.valide == true %}
+			<h1>Ajout réussie</h1>
+			
+	{% else %}
+		<h1>Echec de l'inscription</h1>
+		<h1>
+			<a href="index.php?page=ajoutEntreprise">retour sur la page d'ajout </a>
+		</h1>
+	{% endif %}
+{% else %}
+
+	<div class="container">
+		<div class="row justify-content-center">
+
+			<form action="index.php?page=ajoutEntreprise" method="post" enctype="application/x-www-form-urlencoded">
+				<fieldset>
+					<legend>Ajout d'une entreprise cliente</legend>
+					<div class="form-group row"></div>
+					<div class="form-group">
+						<label for="exampleInputName1">Adresse *</label>
+						<input class="form-control" id="exampleInputname1" name="adresse" placeholder="356 rue de la victoire , 59000 Lille" type="text">
+					</div>
+					<div class="form-group">
+						<label for="exampleInputfirstname1">Email *</label>
+						<input class="form-control" id="exampleInputFirstName1" name="email" placeholder="test@gmail.com" type="email">
+					</div>
+					<div class="form-group">
+						<label for="exampleInputphone1">Tel *
+						</label>
+						<input class="form-control" id="exampleInputphone" name="tel" type="text">
+					</div>
+
+					<button type="submit" name="envoyer" class="btn btn-primary">Envoyer</button>
+				</fieldset>
+			</form>
+		</div>
+	</div>
+{% endif %}{% endblock %}

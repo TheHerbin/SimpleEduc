@@ -16,7 +16,7 @@ function ajoutdeveloppeurControleur($twig,$db){
             $exec = $Developpeurs->insert($nom, $prenom, $indiceremuneration, $couthoraire);
             if (!$exec){
                 $form['valide'] = false;
-                $form['message'] = 'Problème d\'insertion dans la table utilisateur ';
+                $form['message'] = 'Problème d\'insertion dans la table développeur ';
         }
       }
     echo $twig->render('ajoutdeveloppeur.html.twig', array('form'=>$form));
@@ -52,11 +52,11 @@ function ajoutdeveloppeurControleur($twig,$db){
 
 
 function modifDeveloppeurControleur($twig, $db){
+    
     $form = array();
- if(isset($_GET['email'])){
+ if(isset($_GET['id'])){
  $Developpeurs = new Developpeurs($db);
  $undeveloppeur = $Developpeurs->selectById($_GET['id']);
- 
  if ($undeveloppeur!=null){
  $form['developpeur'] = $undeveloppeur;
  }
@@ -68,12 +68,14 @@ function modifDeveloppeurControleur($twig, $db){
     
  if(isset($_POST['btEnvoyer'])){
  $developpeur = new Developpeurs($db);
+ 
  $nom = $_POST['nom'];
  $prenom = $_POST['prenom'];
  $indiceremuneration = $_POST['indiceremuneration'];
  $couthoraire = $_POST['couthoraire'];
+ $id = $_POST['id'];
  
- $exec = $developpeur->update($nom, $prenom, $indiceremuneration, $couthoraire);
+ $exec = $developpeur->update($nom, $prenom, $indiceremuneration, $couthoraire, $id);
  if(!$exec){
  $form['valide'] = false;
  $form['message'] = 'Echec de la modification';
@@ -89,6 +91,54 @@ function modifDeveloppeurControleur($twig, $db){
     }
     echo $twig->render('modifdeveloppeur.html.twig', array('form'=>$form));
    }
+
+
+   function ajoutEntrepriseControleur($twig,$db){
+    $form = array(); 
+    if (isset($_POST['envoyer'])){
+        
+        $adresse =$_POST['adresse']; 
+        $email = $_POST['email'];
+        $tel = $_POST['tel'];
+        $form['valide'] = true;
+        $Entreprise = new Entreprise($db);
+            $exec = $Entreprise->insert($adresse, $email, $tel);
+            if (!$exec){
+                $form['valide'] = false;
+                $form['message'] = 'Problème d\'insertion dans la table Entreprise ';
+        }
+      }
+    echo $twig->render('ajoutEntreprise.html.twig', array('form'=>$form));
+   }
+
+
+   function listeEntrepriseControleur($twig, $db){
+    
+    $form = array();
+    $Entreprise = new Entreprise($db);
+    if(isset($_GET['id'])){
+      
+        $exec=$Entreprise->delete($_GET['id']);
+        
+        if (!$exec){
+        $etat = false;
+        }
+        else{
+        $etat = true;
+        }
+        header('Location: index.php?page=listeEntreprise&etat='.$etat);
+        exit;
+        }
+        if(isset($_GET['etat'])){
+        $form['etat'] = $_GET['etat'];
+        }
+    $liste = $Entreprise->select();
+    var_dump($liste);
+        
+    echo $twig->render('listeEntreprise.html.twig', array('form'=>$form,'liste'=>$liste));
+}
+
+   
     
     ?>
         

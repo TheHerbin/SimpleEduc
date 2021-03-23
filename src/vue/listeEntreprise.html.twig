@@ -1,0 +1,50 @@
+{% extends "base.html.twig" %}
+{% block title %}
+	{{ parent() }}
+	Liste des entreprises clientes
+{% endblock %}
+{% block contenu %}
+	{{ parent() }}
+	
+		<div class="container">
+	<div class="table-responsive">
+	{% if form.etat is defined %}
+{% if form.etat == true %}
+<h1 class="h3 mb-3 font-weight-normal">Suppression réussie</h1>
+{% else %}
+<h1 class="alert alert-danger" role="alert">Problème d'insertion</h1>
+{% endif %}
+{% endif %}
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">adresse</th>
+					<th scope="col">email</th>
+					<th scope="col">Téléphone</th>
+					<th scope="col"></th>
+					
+				</tr>
+			</thead>
+			<tbody>
+				{% for u in liste %}
+
+
+					<tr>
+						<td>{{u.adresse}}</td>
+						<td>{{u.email}}</td>
+						<td>{{u.tel}}</td>
+						
+						
+						<td>	<a <span href="index.php?page=modifEntreprise&id={{u.id}}" class="material-icons">edit</span>
+                        <a <span href="index.php?page=listeEntreprise&id={{u.id}}" class="material-icons">clear</span></td>
+					
+						
+					</tr>
+                    {% endfor %}
+ </tbody>
+ </table>
+ </div>
+  </div>
+
+
+				{% endblock %}
