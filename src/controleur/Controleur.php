@@ -100,9 +100,10 @@ function modifDeveloppeurControleur($twig, $db){
         $adresse =$_POST['adresse']; 
         $email = $_POST['email'];
         $tel = $_POST['tel'];
+        $nom = $_POST['nom'];
         $form['valide'] = true;
         $Entreprise = new Entreprise($db);
-            $exec = $Entreprise->insert($adresse, $email, $tel);
+            $exec = $Entreprise->insert($adresse, $email, $tel, $nom);
             if (!$exec){
                 $form['valide'] = false;
                 $form['message'] = 'Problème d\'insertion dans la table Entreprise ';
@@ -137,6 +138,49 @@ function modifDeveloppeurControleur($twig, $db){
         
     echo $twig->render('listeEntreprise.html.twig', array('form'=>$form,'liste'=>$liste));
 }
+
+function modifEntrepriseControleur($twig, $db){
+    
+    $form = array();
+ if(isset($_GET['id'])){
+ $Entreprise = new Entreprise($db);
+ $uneEntreprise = $Entreprise->selectById($_GET['id']);
+ if ($uneEntreprise!=null){
+ $form['entreprise'] = $uneEntreprise;
+ }
+ else{
+ $form['message'] = 'Utilisateur incorrect';
+ }
+ }
+ else{
+    
+ if(isset($_POST['btEnvoyer'])){
+ $Entreprise = new Entreprise($db);
+                                                                //A FINIR A PARTIR D'ICI : IL FAUT CONTINUER DE TRANSFORMER POUR LENTREPRISE
+ $nom = $_POST['nom'];
+ $prenom = $_POST['prenom'];
+ $indiceremuneration = $_POST['indiceremuneration'];
+ $couthoraire = $_POST['couthoraire'];
+ $id = $_POST['id'];
+ 
+ $exec = $developpeur->update($nom, $prenom, $indiceremuneration, $couthoraire, $id);
+ if(!$exec){
+ $form['valide'] = false;
+ $form['message'] = 'Echec de la modification';
+ }
+ else{
+    $form['valide'] = true;
+    $form['message'] = 'Modification réussie';
+    }
+    }
+    else{
+    $form['message'] = 'Utilisateur non précisé';
+    }
+    }
+    echo $twig->render('modifdeveloppeur.html.twig', array('form'=>$form));
+   }
+
+
 
    
     

@@ -1,5 +1,5 @@
 <?php
-    class Entreprise{
+    class Projet{
         private $db;
         private $insert;
         private $select;
@@ -11,12 +11,12 @@
 
         public function __construct($db){
             $this->db = $db;
-            $this->insert = $db->prepare("INSERT into Entreprise(adresse,email,tel,nom) values(:adresse,:email,:tel,:nom)");
-            $this->select = $db->prepare("SELECT id,adresse,email,tel,nom from Entreprise order by email");
-            $this->connect = $this->db->prepare("SELECT id,adresse,email,tel,nom from Entreprise where id=:id");
-            $this->selectById = $db->prepare("SELECT id,adresse,email,tel,nom from Entreprise where id=:id");
-            $this->update = $db->prepare("UPDATE Entreprise set adresse=:adresse, email=:email, tel=:tel, nom=:nom");
-            $this->delete = $db->prepare("DELETE from Entreprise where id = :id");
+            $this->insert = $db->prepare("INSERT into developpeurs(nom,prenom,indiceremuneration,couthoraire) values(:nom,:prenom,:indiceremuneration,:couthoraire)");
+            $this->select = $db->prepare("SELECT id, nom, prenom, indiceremuneration, couthoraire from developpeurs order by nom");
+            $this->connect = $this->db->prepare("SELECT nom, prenom, indiceremuneration, couthoraire from developpeurs where id=:id");
+            $this->selectById = $db->prepare("SELECT id, nom, prenom, indiceremuneration, couthoraire from developpeurs where id=:id");
+            $this->update = $db->prepare("UPDATE developpeurs set nom=:nom, prenom=:prenom, indiceremuneration=:indiceremuneration, couthoraire=:couthoraire where id=:id");
+            $this->delete = $db->prepare("DELETE from developpeurs where id = :id");
         }
 
         public function connect($id){
@@ -38,10 +38,10 @@
             return $r;
             }
 
-        public function update($adresse,$email,$tel,$nom,$id){
+        public function update($nom,$prenom,$indiceremuneration,$couthoraire,$id){
             
             $r = true;
-            $this->update->execute(array(':adresse'=>$adresse, ':email'=>$email, ':tel'=>$tel,':nom'=>$nom,':id'=>$id));
+            $this->update->execute(array(':nom'=>$nom, ':prenom'=>$prenom, ':indiceremuneration'=>$indiceremuneration,':couthoraire'=>$couthoraire, ':id'=>$id));
             if ($this->update->errorCode()!=0){
             print_r($this->update->errorInfo());
             $r=false;
@@ -49,9 +49,9 @@
             return $r;
             }
 
-        public function insert($adresse,$email,$tel,$nom){
+        public function insert($nom,$prenom,$indiceremuneration,$couthoraire){
             $r=true;
-            $this->insert->execute(array(':adresse'=>$adresse,':email'=>$email,':tel'=>$tel, ':nom'=>$nom));
+            $this->insert->execute(array(':nom'=>$nom,':prenom'=>$prenom,':indiceremuneration'=>$indiceremuneration,':couthoraire'=>$couthoraire));
             if($this->insert->errorCode()!=0){
                 print_r($this->insert->errorInfo());
                 $r=false;
