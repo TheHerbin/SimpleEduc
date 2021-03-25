@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le : mar. 23 mars 2021 à 07:43
+-- Généré le : mar. 23 mars 2021 à 11:02
 -- Version du serveur :  10.3.27-MariaDB-0+deb10u1
 -- Version de PHP : 7.3.27-1~deb10u1
 
@@ -81,7 +81,7 @@ CREATE TABLE `developpeurs` (
 --
 
 INSERT INTO `developpeurs` (`id`, `nom`, `prenom`, `indiceremuneration`, `couthoraire`) VALUES
-(2, 'Dupont', 'Richard', 1.2, 8.33);
+(2, 'Dupond', 'Richard', 1.2, 8.33);
 
 -- --------------------------------------------------------
 
@@ -93,8 +93,16 @@ CREATE TABLE `Entreprise` (
   `id` int(11) NOT NULL,
   `adresse` varchar(250) NOT NULL,
   `email` varchar(250) NOT NULL,
-  `tel` varchar(10) NOT NULL
+  `tel` varchar(10) NOT NULL,
+  `nom` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `Entreprise`
+--
+
+INSERT INTO `Entreprise` (`id`, `adresse`, `email`, `tel`, `nom`) VALUES
+(3, 'rue du poulé', 'egfezfz@grhttrh', '0695747023', 'TEST');
 
 -- --------------------------------------------------------
 
@@ -139,7 +147,8 @@ CREATE TABLE `outil_developpeurs` (
 
 CREATE TABLE `projet` (
   `id` int(10) NOT NULL,
-  `libelle` int(250) NOT NULL
+  `libelle` int(250) NOT NULL,
+  `idEntreprise` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -218,7 +227,8 @@ ALTER TABLE `outil_developpeurs`
 -- Index pour la table `projet`
 --
 ALTER TABLE `projet`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idEntreprise` (`idEntreprise`);
 
 --
 -- Index pour la table `tache`
@@ -254,13 +264,13 @@ ALTER TABLE `contrat`
 -- AUTO_INCREMENT pour la table `developpeurs`
 --
 ALTER TABLE `developpeurs`
-  MODIFY `id` int(250) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(250) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT pour la table `Entreprise`
 --
 ALTER TABLE `Entreprise`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT pour la table `equipeDev`
@@ -321,6 +331,12 @@ ALTER TABLE `equipeDev`
 ALTER TABLE `outil_developpeurs`
   ADD CONSTRAINT `idDEv` FOREIGN KEY (`idDev`) REFERENCES `developpeurs` (`id`),
   ADD CONSTRAINT `idoutil` FOREIGN KEY (`idOutil`) REFERENCES `outil` (`code`);
+
+--
+-- Contraintes pour la table `projet`
+--
+ALTER TABLE `projet`
+  ADD CONSTRAINT `projet_ibfk_1` FOREIGN KEY (`idEntreprise`) REFERENCES `Entreprise` (`id`);
 
 --
 -- Contraintes pour la table `tache`
