@@ -11,11 +11,11 @@
 
         public function __construct($db){
             $this->db = $db;
-            $this->insert = $db->prepare("INSERT into Entreprise(adresse,email,tel,nom) values(:adresse,:email,:tel,:nom)");
-            $this->select = $db->prepare("SELECT id,adresse,email,tel,nom from Entreprise order by email");
-            $this->connect = $this->db->prepare("SELECT id,adresse,email,tel,nom from Entreprise where id=:id");
-            $this->selectById = $db->prepare("SELECT id,adresse,email,tel,nom from Entreprise where id=:id");
-            $this->update = $db->prepare("UPDATE Entreprise set adresse=:adresse, email=:email, tel=:tel, nom=:nom");
+            $this->insert = $db->prepare("INSERT into Entreprise(adresse,tel,nom) values(:adresse,:tel,:nom)");
+            $this->select = $db->prepare("SELECT id,adresse,tel,nom from Entreprise order by nom");
+            $this->connect = $this->db->prepare("SELECT id,adresse,tel,nom from Entreprise where id=:id");
+            $this->selectById = $db->prepare("SELECT id,adresse,tel,nom from Entreprise where id=:id");
+            $this->update = $db->prepare("UPDATE Entreprise set adresse=:adresse, tel=:tel, nom=:nom where id=:id");
             $this->delete = $db->prepare("DELETE from Entreprise where id = :id");
         }
 
@@ -38,10 +38,10 @@
             return $r;
             }
 
-        public function update($adresse,$email,$tel,$nom,$id){
+        public function update($adresse,$tel,$nom,$id){
             
             $r = true;
-            $this->update->execute(array(':adresse'=>$adresse, ':email'=>$email, ':tel'=>$tel,':nom'=>$nom,':id'=>$id));
+            $this->update->execute(array(':adresse'=>$adresse, ':tel'=>$tel,':nom'=>$nom,':id'=>$id));
             if ($this->update->errorCode()!=0){
             print_r($this->update->errorInfo());
             $r=false;
@@ -49,9 +49,9 @@
             return $r;
             }
 
-        public function insert($adresse,$email,$tel,$nom){
+        public function insert($adresse,$tel,$nom){
             $r=true;
-            $this->insert->execute(array(':adresse'=>$adresse,':email'=>$email,':tel'=>$tel, ':nom'=>$nom));
+            $this->insert->execute(array(':adresse'=>$adresse,':tel'=>$tel, ':nom'=>$nom));
             if($this->insert->errorCode()!=0){
                 print_r($this->insert->errorInfo());
                 $r=false;

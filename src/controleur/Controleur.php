@@ -98,12 +98,11 @@ function modifDeveloppeurControleur($twig, $db){
     if (isset($_POST['envoyer'])){
         
         $adresse =$_POST['adresse']; 
-        $email = $_POST['email'];
         $tel = $_POST['tel'];
         $nom = $_POST['nom'];
         $form['valide'] = true;
         $Entreprise = new Entreprise($db);
-            $exec = $Entreprise->insert($adresse, $email, $tel, $nom);
+            $exec = $Entreprise->insert($adresse, $tel, $nom);
             if (!$exec){
                 $form['valide'] = false;
                 $form['message'] = 'Problème d\'insertion dans la table Entreprise ';
@@ -142,42 +141,41 @@ function modifDeveloppeurControleur($twig, $db){
 function modifEntrepriseControleur($twig, $db){
     
     $form = array();
- if(isset($_GET['id'])){
- $Entreprise = new Entreprise($db);
- $uneEntreprise = $Entreprise->selectById($_GET['id']);
- if ($uneEntreprise!=null){
- $form['entreprise'] = $uneEntreprise;
- }
- else{
- $form['message'] = 'Utilisateur incorrect';
- }
- }
- else{
-    
- if(isset($_POST['btEnvoyer'])){
- $Entreprise = new Entreprise($db);
-                                                                //A FINIR A PARTIR D'ICI : IL FAUT CONTINUER DE TRANSFORMER POUR LENTREPRISE
- $nom = $_POST['nom'];
- $prenom = $_POST['prenom'];
- $indiceremuneration = $_POST['indiceremuneration'];
- $couthoraire = $_POST['couthoraire'];
- $id = $_POST['id'];
- 
- $exec = $developpeur->update($nom, $prenom, $indiceremuneration, $couthoraire, $id);
- if(!$exec){
- $form['valide'] = false;
- $form['message'] = 'Echec de la modification';
- }
- else{
-    $form['valide'] = true;
-    $form['message'] = 'Modification réussie';
+    if(isset($_GET['id'])){
+    $Entreprise = new Entreprise($db);
+    $uneEntreprise = $Entreprise->selectById($_GET['id']);
+    if ($uneEntreprise!=null){
+    $form['Entreprise'] = $uneEntreprise;
+    }
+    else{
+    $form['message'] = 'Utilisateur incorrect';
     }
     }
     else{
-    $form['message'] = 'Utilisateur non précisé';
+       
+    if(isset($_POST['btEnvoyer'])){
+    $entreprise = new Entreprise($db);
+    
+    $nom = $_POST['nom'];
+    $adresse = $_POST['adresse'];
+    $tel = $_POST['tel'];
+    $id = $_POST['id'];
+    
+    $exec = $entreprise->update($adresse,$tel,$nom,$id);
+    if(!$exec){
+    $form['valide'] = false;
+    $form['message'] = 'Echec de la modification';
     }
-    }
-    echo $twig->render('modifdeveloppeur.html.twig', array('form'=>$form));
+    else{
+       $form['valide'] = true;
+       $form['message'] = 'Modification réussie';
+       }
+       }
+       else{
+       $form['message'] = 'Utilisateur non précisé';
+       }
+       }
+       echo $twig->render('modifEntreprise.html.twig', array('form'=>$form));
    }
 
 
